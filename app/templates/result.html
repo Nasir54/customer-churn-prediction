@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .container { max-width: 600px; margin: 0 auto; }
+        .result { padding: 20px; border-radius: 5px; margin: 20px 0; }
+        .churn { background-color: #ffebee; color: #c62828; }
+        .no-churn { background-color: #e8f5e9; color: #2e7d32; }
+        .back-btn { background-color: #2196F3; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; text-decoration: none; display: inline-block; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Prediction Result</h1>
+        
+        {% if prediction %}
+            <div class="result churn">
+                <h2>⚠️ Customer is likely to CHURN</h2>
+                <p>Probability of churn: {{ (probability * 100)|round(2) }}%</p>
+            </div>
+        {% else %}
+            <div class="result no-churn">
+                <h2>✅ Customer is likely to STAY</h2>
+                <p>Probability of churn: {{ (probability * 100)|round(2) }}%</p>
+            </div>
+        {% endif %}
+        
+        <h3>Input Details:</h3>
+        <ul>
+            {% for key, value in input_data.items() %}
+                <li><strong>{{ key }}:</strong> {{ value }}</li>
+            {% endfor %}
+        </ul>
+        
+        <a href="/" class="back-btn">Make Another Prediction</a>
+    </div>
+</body>
+</html>
